@@ -8,4 +8,5 @@ double Util::getSign(double value){
 
 double Util::abs(double value){
     if (value < 0) return value * -1.0;
+    else return value;
 }

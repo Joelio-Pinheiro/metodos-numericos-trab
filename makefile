@@ -1,6 +1,8 @@
 all: main
 
 files:
+	mkdir -p bin
+
 	g++ -c cppfiles/exceptions.cpp -o bin/exceptions.o
 	g++ -c cppfiles/util.cpp -o bin/util.o
 	g++ -c cppfiles/numethods.cpp -o bin/numethods.o
