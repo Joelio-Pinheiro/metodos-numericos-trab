@@ -1,21 +1,47 @@
 #include <iostream>
+#include <limits>
+#include <vector>
+#include "headers/rocket.h"
+#include "headers/util.h"
+#include <iomanip>
 
-#include "headers/numethods.h"
+int main()
+{
+    int num_foguetes;
+    double precision;
+    std::vector<Rocket> foguetes;
 
-double f(double x){
-    return x*x*x + 2*x*x + x + 20;
-}
+    printf("----------- Sistema de Calculo de Deslocamento de Foguetes -----------\n");
+    printf("Este programa calcula as raizes das equacoes usando metodos numericos.\n");
+    printf("---------------------------------------------------------------------\n\n");
 
-double df(double x){
-    return 3*x*x + 4*x + 1;
-}
+    num_foguetes = Util::getPositiveInt("Digite o numero de foguetes: ");
 
-int main(){
-    using namespace NumericalMethods;
+    precision = Util::getPositiveDouble("Digite a precisao desejada (e): ");
 
-    printf("Bisection Root: %.4f\n", bisection(f, -5.0, 5.0, 0.000001));
-    printf("False Position Root: %.4f\n", falsePos(f, -5, 5, 0.000001, 0.000001));
-    printf("Newton Raphson Root: %.4f\n", newtonRaphson(f, df, -3.0, 0.000001, 0.000001));
+    for (size_t i = 0; i < num_foguetes; i++)
+    {
+        double a = Util::getPositiveDouble("Digite o valor de a para o foguete " + std::to_string(i + 1) + ": ");
+        Rocket foguete = Rocket(a, precision);
+        foguetes.push_back(foguete);
+    }
+    for (Rocket &foguete : foguetes)
+    {
+        foguete.calculateRoots();
+    }
 
+    Util::clearConsole();
+    printf("Precisao: %.f", precision);
+    std::cout << "\nQuadro de Resposta:\n";
+    std::cout << std::setw(6) << "ID" << std::setw(10) << "A"
+              << std::setw(15) << "Bissecao" << std::setw(10) << "Erro"
+              << std::setw(17) << "Posicao Falsa" << std::setw(10) << "Erro"
+              << std::setw(17) << "Newton-Raphson" << std::setw(11) << "Erro"
+              << "\n";
+    int id = 1;
+    for (const Rocket &foguete : foguetes)
+    {
+        foguete.displayResults(id++);
+    }
     return 0;
 }
