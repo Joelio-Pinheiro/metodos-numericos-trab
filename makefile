@@ -7,9 +7,10 @@ files:
 	g++ -c cppfiles/util.cpp -o bin/util.o
 	g++ -c cppfiles/numethods.cpp -o bin/numethods.o
 	g++ -c cppfiles/rocket.cpp -o bin/rocket.o
+	g++ -c cppfiles/datastructures.cpp -o bin/datastructures.o
 
 linklib: files
-	ar rcs bin/libmain.a bin/exceptions.o bin/util.o bin/numethods.o bin/rocket.o
+	ar rcs bin/libmain.a bin/exceptions.o bin/util.o bin/numethods.o bin/rocket.o bin/datastructures.o
 
 main: linklib
 	g++ main.cpp -L"bin" -lmain -o main

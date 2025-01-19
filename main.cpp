@@ -19,29 +19,35 @@ int main()
 
     precision = Util::getPositiveDouble("Digite a precisao desejada (e): ");
 
+    int id = 1;
     for (size_t i = 0; i < num_foguetes; i++)
     {
         double a = Util::getPositiveDouble("Digite o valor de a para o foguete " + std::to_string(i + 1) + ": ");
-        Rocket foguete = Rocket(a, precision);
+        Rocket foguete = Rocket(a, precision, id++);
         foguetes.push_back(foguete);
-    }
-    for (Rocket &foguete : foguetes)
-    {
-        foguete.calculateRoots();
     }
 
     Util::clearConsole();
-    printf("Precisao: %.f", precision);
+
+    std::cout << '\n' << "****************************************************************************************************************************";
+
+    std::cout << std::setprecision(16) << std::defaultfloat << '\n' << "Tolerancia: " << precision;
+
     std::cout << "\nQuadro de Resposta:\n";
     std::cout << std::setw(6) << "ID" << std::setw(10) << "A"
-              << std::setw(15) << "Bissecao" << std::setw(10) << "Erro"
-              << std::setw(17) << "Posicao Falsa" << std::setw(10) << "Erro"
-              << std::setw(17) << "Newton-Raphson" << std::setw(11) << "Erro"
+              << std::setw(15) << "Bissecao" << std::setw(10) << "Erro" << std::setw(15) << "Intervalo"
+              << std::setw(20) << "Posicao Falsa" << std::setw(10) << "Erro" << std::setw(15) << "Intervalo"
+              << std::setw(20) << "Newton-Raphson" << std::setw(10) << "Erro" << std::setw(20) << "Valor Inicial"
               << "\n";
-    int id = 1;
-    for (const Rocket &foguete : foguetes)
+
+    for (Rocket &foguete : foguetes)
     {
-        foguete.displayResults(id++);
+        if (foguete.getLastError() == "") foguete.displayResults();
+        else std::cout << std::setw(50) << "Foguete " << foguete.getId() << ": " << foguete.getLastError() << '\n';
     }
+
+    std::cout << '\n' << "sufixo s: foguete seguro" << "         " << "sufixo d: foguete nao seguro (explode)";
+
+    std::cout << '\n' << "****************************************************************************************************************************";
     return 0;
 }

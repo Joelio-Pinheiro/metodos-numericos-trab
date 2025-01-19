@@ -20,8 +20,7 @@ void Util::clearConsole(){
 #endif
 }
 
-int Util::getPositiveInt(const std::string &prompt)
-{
+int Util::getPositiveInt(const std::string &prompt){
     int value = 0;
     while (true)
     {
@@ -43,8 +42,7 @@ int Util::getPositiveInt(const std::string &prompt)
     return value;
 }
 
-double Util::getPositiveDouble(const std::string &prompt)
-{
+double Util::getPositiveDouble(const std::string &prompt){
     double value = 0.0;
     while (true)
     {
